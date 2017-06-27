@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Mathcademy</string>
+    <string name="edit_name">Benutzername</string>
+    <string name="Passwort">Passwort</string>
+    <string name="button_send">Lets Go</string>
+    <string name="wilkommen">Wilkommen</string>
+    <string name="titel2">Hallo</string>
+    <string-array name="themen">
+        <item>Thema 1</item>
+        <item>Thema 2</item>
+        <item>Thema 3</item>
+        <item>Thema 4</item>
+    </string-array>
+</resources>
