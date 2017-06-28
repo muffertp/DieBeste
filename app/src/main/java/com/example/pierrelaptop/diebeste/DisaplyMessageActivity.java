@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import programm.Orchestrator;
+
 public class DisaplyMessageActivity extends AppCompatActivity {
 
     @Override
@@ -18,8 +20,10 @@ public class DisaplyMessageActivity extends AppCompatActivity {
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-
+        Orchestrator orch = Orchestrator.getOrchestrator();
         //Capture the layout's TextView and set the string as its text
+        //TODO Übergabe der Logindaten an
+        orch.login("Username","Password");
         TextView textView = (TextView) findViewById(R.id.textView);
         textView.setText("Du bist eingeloggt als " + message);
     }
