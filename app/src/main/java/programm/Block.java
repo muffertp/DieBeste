@@ -16,18 +16,20 @@ public class Block {
     private ArrayList<Question> questions = null;
 
     private int blockId;
+    private String blockName="";
 
-    public Block(int num){
+    public Block(int num,String n){
 
         questions = new ArrayList<Question>();
         blockId = num;
+        blockName=n;
         loadBlock();
 
     }
-
+    public String getBlockName(){return blockName;}
     private void loadBlock(){
         Loader loader = new Loader(this);
-        String url = "http://thebest.sysgame.de/run.cgi/getMathBlock";
+        String url = Lib.baseURL+"getMathBlock";
         loader.execute("block",url);
     }
 

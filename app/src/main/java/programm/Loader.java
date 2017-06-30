@@ -31,7 +31,7 @@ public class Loader extends AsyncTask<String,Integer,String> {
             if (object.getClass()==Block.class&&strings[0].equals("block")){
                 Lib.readUrl(strings[1]);
             }else if (object.getClass()==Orchestrator.class&&strings[0].equals("getBlockList")){
-                Lib.readUrl(Lib.baseURL+"userBlockList");
+                result=Lib.readUrl(Lib.baseURL+"userBlockList");
             }else if (object.getClass()==MainActivity.class&&strings[0].equals("login")){
                 result=Lib.readUrl(strings[1]);
             }
@@ -47,17 +47,21 @@ public class Loader extends AsyncTask<String,Integer,String> {
                 Block b = (Block) object;
                 b.loadResponse(s);
             }else if (object.getClass()==Orchestrator.class && parameter[0].equals("getBlockList")){
-
+                System.out.println("S ::: "+s);
+                Orchestrator.getOrchestrator().setUserBlockList(s);
             }else if (object.getClass()==MainActivity.class&&parameter[0].equals("login")){
                 MainActivity activity = (MainActivity) object;
-                System.out.println("S : "+s);
+                Orchestrator orchestrator = Orchestrator.getOrchestrator();
                 try {
                     JSONArray jsonArray = new JSONArray(s);
                     JSONObject obj = jsonArray.getJSONObject(0);
                     if (obj.getInt("loginState")==1){
-
+                        orchestrator.getBlockList();
                         activity.loginSucsess();
+
+                        orchestrator.setLogin(true);
                     }else{
+                        orchestrator.logout();
                         activity.loginFail();
                     }
                 } catch (JSONException e) {

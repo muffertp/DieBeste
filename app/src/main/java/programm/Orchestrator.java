@@ -1,5 +1,7 @@
 package programm;
 
+import com.example.pierrelaptop.diebeste.DisaplyMessageActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,12 +18,17 @@ public class Orchestrator{
     private String sessionID;
 
     private boolean login = false;
-    private ArrayList<Integer> blockList;
+    private ArrayList<Block> blockList;
     private Block currentBlock;
     private Block nextBlock;
     private int currentBlockNum=0;
     private int nextBlockNum=1;
     private Question currentQuestion;
+    private DisaplyMessageActivity disaplyMessageActivity;
+
+    public void setDisaplyMessageActivity(DisaplyMessageActivity d){
+        disaplyMessageActivity = d ;
+    }
 
     public Question getNextQuestion(){
 
@@ -38,17 +45,17 @@ public class Orchestrator{
         if(newBlcok==-1){
             currentBlock=nextBlock;
             currentBlockNum = nextBlockNum;
-            nextBlock=new Block(nextBlockNum);
+           // nextBlock=new Block(nextBlockNum);
 
         }
     }
 
     public Question getCurrentQuestion(){return currentQuestion;}
-
+    public ArrayList<Block> getBlockList(){return blockList;}
     private static Orchestrator instance;
 
     private Orchestrator(){
-
+        blockList = new ArrayList<Block>();
         //this.execute();
         //currentBlock = new Block(currentBlockNum);
         //nextBlock = new Block(nextBlockNum);
@@ -63,26 +70,31 @@ public class Orchestrator{
         if (login){
             Loader loader = new Loader(this);
             loader.execute("getBlockList");
-                }
+        }
+
+
     }
     public void setUserBlockList (String s){
         try {
             JSONArray jsonArray = new JSONArray(s);
             for (int i = 0; i<jsonArray.length();i++){
                 JSONObject obj = jsonArray.getJSONObject(i);
-                blockList.add(obj.getInt("blockID"));
+                blockList.add(new Block(obj.getInt("blockID"),obj.getString("blockName")));
             }
         }catch (JSONException e) {
             e.printStackTrace();
 
         }
+        disaplyMessageActivity.setButton();
     }
 
-    public void login(String userName, String userPass){
 
-        Loader loader = new Loader(this);
-        loader.execute("login");
 
+    public void setLogin(boolean state){
+        login = state;
+        if (state){
+            loadUserBlockList();
+        }
     }
 
     /* Die Klasse kann nicht direckt instanziiert werden, sondern muss über die get Insatance Methode
