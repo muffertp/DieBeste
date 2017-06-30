@@ -31,8 +31,6 @@ public class Orchestrator{
         }else{
 
         }
-
-
         return getCurrentQuestion();
     }
 
@@ -41,6 +39,7 @@ public class Orchestrator{
             currentBlock=nextBlock;
             currentBlockNum = nextBlockNum;
             nextBlock=new Block(nextBlockNum);
+
         }
     }
 

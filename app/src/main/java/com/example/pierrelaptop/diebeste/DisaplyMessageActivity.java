@@ -19,14 +19,13 @@ public class DisaplyMessageActivity extends AppCompatActivity {
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
+        String userName = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-        Orchestrator orch = Orchestrator.getOrchestrator();
-        //Capture the layout's TextView and set the string as its text
-        //TODO Übergabe der Logindaten an
-        orch.login("Username","Password");
+
         TextView textView = (TextView) findViewById(R.id.textView);
         textView.setText("Du bist eingeloggt als " + message);
     }
+
     public void sendMessage2(View view) {
         Intent intent2 = new Intent(this, Uebungen.class);
         startActivity(intent2);

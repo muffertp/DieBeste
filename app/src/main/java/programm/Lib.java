@@ -19,12 +19,9 @@ import java.util.regex.Pattern;
 public class Lib {
 
     private static String sessionID="";
-
     public static final String baseURL = "http://thebest.sysgame.de/run.cgi/";
 
-    public static void login(){
-        readUrl(baseURL+"userData?email=kprause@gmx.net&password=pass");
-    }
+    public static String getSessionID(){return sessionID;}
 
     public static String readUrl(String urlString) {
         String result="";
@@ -54,21 +51,22 @@ public class Lib {
                 result+=inputLine;
             }
 
-            String headerName = "";
+            //String headerName = "";
 
+            //Map<String, List<String>> header = httpconn.getHeaderFields();
 
-            Map<String, List<String>> header = httpconn.getHeaderFields();
+            //List<String> cookies = httpconn.getHeaderFields().get("Set-Cookie");
+            if (httpconn.getHeaderFields().get("Set-Cookie")!=null) {
+                String mydata = httpconn.getHeaderFields().get("Set-Cookie").get(0);
+                System.out.println("myData: " + mydata);
+                Pattern pattern = Pattern.compile("dancer.session=(.*?);");
+                Matcher matcher = pattern.matcher(mydata);
 
-            List<String> cookies = httpconn.getHeaderFields().get("Set-Cookie");
-
-            String mydata = httpconn.getHeaderFields().get("Set-Cookie").get(0);
-            Pattern pattern = Pattern.compile("dancer.session=(.*?);");
-            Matcher matcher = pattern.matcher(mydata);
-            if (matcher.find())
-            {
-                sessionID = matcher.group(1);
+                if (matcher.find()) {
+                    sessionID = matcher.group(1);
+                }
             }
-            //System.out.println(urlCon.ge);
+            System.out.println("Lib.sessionID: "+sessionID);
             /*
             for (int i = 0; (headerName = urlCon.getHeaderFieldKey(i)) != null; i++)
             {
@@ -88,7 +86,7 @@ public class Lib {
         } catch (IOException e) {
             System.out.println(e.toString());
         }
-        System.out.println(result);
+
         return result;
     }
 
