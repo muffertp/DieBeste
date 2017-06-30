@@ -18,6 +18,17 @@ public class Block {
     private int blockId;
     private String blockName="";
 
+    private int currentQuestion=0;
+
+    public String getQuestion(){
+        if(questions.size()>0){
+            int randomNum = (int)(Math.random() * questions.size());
+            currentQuestion=randomNum;
+            return questions.get(currentQuestion).getQuestionText();
+        }
+        return "-1";
+    }
+
     public Block(int num,String n){
 
         questions = new ArrayList<Question>();
@@ -70,6 +81,7 @@ public class Block {
     }
 
     public ArrayList<Question> getQuestions(){return questions;}
+
     public String toString(){
         String result = "";
         for (int i =0;i<questions.size();i++){

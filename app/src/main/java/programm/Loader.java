@@ -29,7 +29,7 @@ public class Loader extends AsyncTask<String,Integer,String> {
         String result="";
         if(strings.length>0) {
             if (object.getClass()==Block.class&&strings[0].equals("block")){
-                Lib.readUrl(strings[1]);
+                result=Lib.readUrl(strings[1]);
             }else if (object.getClass()==Orchestrator.class&&strings[0].equals("getBlockList")){
                 result=Lib.readUrl(Lib.baseURL+"userBlockList");
             }else if (object.getClass()==MainActivity.class&&strings[0].equals("login")){

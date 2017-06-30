@@ -1,6 +1,7 @@
 package programm;
 
 import com.example.pierrelaptop.diebeste.DisaplyMessageActivity;
+import com.example.pierrelaptop.diebeste.Uebungen;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,9 +26,19 @@ public class Orchestrator{
     private int nextBlockNum=1;
     private Question currentQuestion;
     private DisaplyMessageActivity disaplyMessageActivity;
+    private Uebungen uebungen;
+
+    public void setUebungen(Uebungen u ){
+        uebungen = u;
+    }
 
     public void setDisaplyMessageActivity(DisaplyMessageActivity d){
         disaplyMessageActivity = d ;
+    }
+
+    public void displayNextQuestion(){
+        Block block = blockList.get(0);
+        uebungen.setQuestion(block.getQuestion());
     }
 
     public Question getNextQuestion(){

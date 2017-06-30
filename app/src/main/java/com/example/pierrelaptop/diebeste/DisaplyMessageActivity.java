@@ -46,6 +46,7 @@ public class DisaplyMessageActivity extends AppCompatActivity {
     }
 
     public void sendMessage2(View view) {
+
         Intent intent2 = new Intent(this, Uebungen.class);
         startActivity(intent2);
     }
