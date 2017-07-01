@@ -37,7 +37,7 @@ public class Orchestrator{
     }
 
     public void displayNextQuestion(){
-        Block block = blockList.get(0);
+        Block block = blockList.get(currentBlockNum);
         uebungen.setQuestion(block.getQuestion());
     }
 
@@ -50,6 +50,18 @@ public class Orchestrator{
 
         }
         return getCurrentQuestion();
+    }
+
+    public void setCurrentBlock(int blockNum){
+        currentBlockNum = blockNum;
+    }
+
+    public void checkUserAnswer(String userAnswer){
+        boolean answerCorrect = blockList.get(0).checkAnswer(userAnswer);
+        if(answerCorrect){
+            displayNextQuestion();
+        }
+
     }
 
     public void changeBlock(int newBlcok){

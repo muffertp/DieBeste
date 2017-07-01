@@ -46,7 +46,9 @@ public class DisaplyMessageActivity extends AppCompatActivity {
     }
 
     public void sendMessage2(View view) {
-
+        System.out.println("TAG :: "+view.getTag().toString());
+        Orchestrator orchestrator = Orchestrator.getOrchestrator();
+        orchestrator.setCurrentBlock(Integer.parseInt(view.getTag().toString()));
         Intent intent2 = new Intent(this, Uebungen.class);
         startActivity(intent2);
     }

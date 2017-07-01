@@ -29,6 +29,12 @@ public class Block {
         return "-1";
     }
 
+    public boolean checkAnswer(String userAnswer){
+
+        int answer = Integer.parseInt(userAnswer);
+        return questions.get(currentQuestion).checkQuestion(answer);
+    }
+
     public Block(int num,String n){
 
         questions = new ArrayList<Question>();
@@ -40,7 +46,7 @@ public class Block {
     public String getBlockName(){return blockName;}
     private void loadBlock(){
         Loader loader = new Loader(this);
-        String url = Lib.baseURL+"getMathBlock";
+        String url = Lib.baseURL+"getMathBlock?block="+blockId;
         loader.execute("block",url);
     }
 

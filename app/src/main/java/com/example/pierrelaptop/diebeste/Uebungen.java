@@ -24,9 +24,9 @@ public class Uebungen extends AppCompatActivity {
     }
 
     public void checkQuestion(View view){
+        EditText userInput = (EditText) findViewById(R.id.answerInput);
         Orchestrator orchestrator = Orchestrator.getOrchestrator();
-        orchestrator.setUebungen(this);
-        orchestrator.displayNextQuestion();
+        orchestrator.checkUserAnswer(userInput.getText().toString());
     }
 
     public void setQuestion(String question){

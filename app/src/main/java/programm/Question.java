@@ -20,7 +20,12 @@ public class Question {
         answerMin = aMin;
     }
 
-
+    public boolean checkQuestion(double answer){
+        if(answer<=answerMax&&answer>=answerMin){
+            return true;
+        }
+        return false;
+    }
 
     public String getQuestionText(){return questionText;}
     public String getQuestionType(){return questionType;}
