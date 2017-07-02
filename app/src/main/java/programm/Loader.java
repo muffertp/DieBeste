@@ -1,9 +1,7 @@
 package programm;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 
-import com.example.pierrelaptop.diebeste.DisaplyMessageActivity;
 import com.example.pierrelaptop.diebeste.MainActivity;
 
 import org.json.JSONArray;
@@ -16,11 +14,8 @@ import org.json.JSONObject;
 
 public class Loader extends AsyncTask<String,Integer,String> {
 
-
     private Object object;
-
     private String[] parameter;
-
     public Loader(Object obj){
         object=obj;
     }
@@ -51,7 +46,6 @@ public class Loader extends AsyncTask<String,Integer,String> {
     protected void onPostExecute(String s) {
         System.out.println("S :::: "+s);
         if ( s.equals("error")||s.equals("") ) {
-            System.out.println("onPostError");
             Orchestrator.getOrchestrator().goHome();
         } else {
             if (parameter.length > 0) {

@@ -24,11 +24,7 @@ public class Orchestrator{
 
     private boolean login = false;
     private ArrayList<Block> blockList;
-    private Block currentBlock;
-    private Block nextBlock;
     private int currentBlockNum=0;
-    private int nextBlockNum=1;
-    private Question currentQuestion;
     private DisaplyMessageActivity disaplyMessageActivity;
     private Uebungen uebungen;
     private MainActivity mainActivity;
@@ -64,18 +60,6 @@ public class Orchestrator{
                 Toast.LENGTH_LONG).show();
 
     }
-
-    public Question getNextQuestion(){
-
-        if (currentBlock.getQuestions().size()>0){
-            int randomNum = (int)(Math.random() * currentBlock.getQuestions().size());
-            currentQuestion = currentBlock.getQuestions().get(randomNum);
-        }else{
-            goDisplay();
-        }
-        return getCurrentQuestion();
-    }
-
     public void setCurrentBlock(int blockNum){
         currentBlockNum = blockNum;
     }
@@ -91,15 +75,6 @@ public class Orchestrator{
 
     }
 
-    public void changeBlock(int newBlcok){
-        if(newBlcok==-1){
-            currentBlock=nextBlock;
-            currentBlockNum = nextBlockNum;
-           // nextBlock=new Block(nextBlockNum);
-
-        }
-    }
-
     public void goHome(){
         Intent intent = new Intent(mainActivity.getApplicationContext(), MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -108,15 +83,11 @@ public class Orchestrator{
 
     }
 
-    public Question getCurrentQuestion(){return currentQuestion;}
     public ArrayList<Block> getBlockList(){return blockList;}
     private static Orchestrator instance;
 
     private Orchestrator(){
         blockList = new ArrayList<Block>();
-        //this.execute();
-        //currentBlock = new Block(currentBlockNum);
-        //nextBlock = new Block(nextBlockNum);
     }
 
     public void logout(){
@@ -130,9 +101,8 @@ public class Orchestrator{
             Loader loader = new Loader(this);
             loader.execute("getBlockList");
         }
-
-
     }
+
     public void setUserBlockList (String s){
         blockList.clear();
         try {
@@ -170,6 +140,4 @@ public class Orchestrator{
         }
         return instance;
     }
-
-    //public boolean getLoginStatus(){return login;}
 }

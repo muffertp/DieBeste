@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -22,9 +19,6 @@ public class DisaplyMessageActivity extends AppCompatActivity {
         Orchestrator orchestrator = Orchestrator.getOrchestrator();
         orchestrator.setDisaplyMessageActivity(this);
         setButton();
-        /*
-        EditText editTextUserInput = (EditText) findViewById(R.id.userInput);
-        */
     }
 
     public void setButton(){
@@ -46,7 +40,6 @@ public class DisaplyMessageActivity extends AppCompatActivity {
     }
 
     public void sendMessage2(View view) {
-        System.out.println("TAG :: "+view.getTag().toString());
         Orchestrator orchestrator = Orchestrator.getOrchestrator();
         orchestrator.setCurrentBlock(Integer.parseInt(view.getTag().toString()));
         Intent intent2 = new Intent(this, Uebungen.class);

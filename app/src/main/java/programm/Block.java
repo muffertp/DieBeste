@@ -60,17 +60,13 @@ public class Block {
 
     public void loadResponse(String result) {
         stringToJSON(result);
-        System.out.println("Done-Loading: "+result);
-
     }
 
     private void stringToJSON(String jsonStr){
-        System.out.println(jsonStr);
 
         if (jsonStr != null) {
             try {
                 JSONArray jsonArray = new JSONArray(jsonStr);
-                System.out.println(jsonArray.toString());
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     if (jsonObject.has("error")){
@@ -90,8 +86,6 @@ public class Block {
                 e.printStackTrace();
             }
         }
-        System.out.println(toString());
-
     }
 
     public ArrayList<Question> getQuestions(){return questions;}

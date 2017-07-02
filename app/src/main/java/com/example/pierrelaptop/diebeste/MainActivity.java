@@ -11,10 +11,7 @@ import programm.Lib;
 import programm.Loader;
 import programm.Orchestrator;
 
-import static android.R.id.message;
-
 public class MainActivity extends AppCompatActivity {
-    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,16 +30,12 @@ public class MainActivity extends AppCompatActivity {
         String userPassword = editTextPassword.getText().toString();
 
         Loader loader = new Loader(this);
-        System.out.println(Lib.baseURL+"userData?email="+userName+"&password="+userPassword);
         loader.execute("login", Lib.baseURL+"userData?email="+userName+"&password="+userPassword);
 
-        //intent.putExtra(EXTRA_MESSAGE, message);
-        //startActivity(intent);
     }
 
     public void loginSucsess(){
         Intent intent = new Intent(this, DisaplyMessageActivity.class);
-        //intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
     public void loginFail(){

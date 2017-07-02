@@ -18,19 +18,6 @@
         app:layout_constraintVertical_bias="0.739"
         app:srcCompat="@drawable/chalkvertikal" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="240dp"
-        android:layout_height="75dp"
-        android:layout_marginRight="8dp"
-        android:text='"Du bist eingeloggt als" + TextView'
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginEnd="8dp" />
-
     <Button
         android:id="@+id/MathButton1"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"

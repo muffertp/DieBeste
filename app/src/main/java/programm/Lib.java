@@ -6,8 +6,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,67 +26,36 @@ public class Lib {
         URL url;
         try {
             url = new URL(urlString);
-
             String sCookie ="";
             if (!sessionID.equals("")) {
                 sCookie = "dancer.session=" + sessionID + ";";
             }
             HttpURLConnection httpconn  = (HttpURLConnection) url.openConnection();
-
-            if(sCookie!=null && sCookie.length()>0){
+            if(sCookie!=null && sCookie.length()>0) {
                 httpconn.setRequestProperty("Cookie", sCookie);
             }
-            System.out.println(url.toString());
-            //URLConnection urlCon = url.openConnection();
-            System.out.println("Alive!");
             InputStreamReader reader = new InputStreamReader(httpconn.getInputStream());
-            System.out.println("Still alive");
             BufferedReader in = new BufferedReader(reader);
-            System.out.println("STILL ALIVE!");
             String inputLine;
-
             while ((inputLine = in.readLine()) != null) {
                 result+=inputLine;
             }
-
-            //String headerName = "";
-
-            //Map<String, List<String>> header = httpconn.getHeaderFields();
-
-            //List<String> cookies = httpconn.getHeaderFields().get("Set-Cookie");
             if (httpconn.getHeaderFields().get("Set-Cookie")!=null) {
                 String mydata = httpconn.getHeaderFields().get("Set-Cookie").get(0);
-                System.out.println("myData: " + mydata);
                 Pattern pattern = Pattern.compile("dancer.session=(.*?);");
                 Matcher matcher = pattern.matcher(mydata);
-
                 if (matcher.find()) {
                     sessionID = matcher.group(1);
                 }
             }
-            System.out.println("Lib.sessionID: "+sessionID);
-            /*
-            for (int i = 0; (headerName = urlCon.getHeaderFieldKey(i)) != null; i++)
-            {
-
-                System.out.println("Cookie - "+urlCon.getHeaderFieldKey(i)+" :: "+urlCon.getHeaderField(i));
-
-                if(headerName.equals("Set-Cookie"))
-                {
-                    //cookieValue = urlCon.getHeaderField(i);
-                }
-            }
-            */
-
             in.close();
         } catch (MalformedURLException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         } catch (IOException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }catch (Exception e){
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
-
         return result;
     }
 
