@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.content.Intent;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import programm.Lib;
 import programm.Loader;
+import programm.Orchestrator;
 
 import static android.R.id.message;
 
@@ -17,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Orchestrator orchestrator = Orchestrator.getOrchestrator();
+        orchestrator.setMainActivity(this);
     }
 
     /** Called when the user taps the Send button */
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void loginFail(){
-
+        Toast.makeText(this, "Login Fehlgeschlagen",
+                Toast.LENGTH_LONG).show();
     }
 }

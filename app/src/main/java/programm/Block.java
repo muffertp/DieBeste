@@ -30,9 +30,13 @@ public class Block {
     }
 
     public boolean checkAnswer(String userAnswer){
+        if(!userAnswer.trim().equals("")) {
+            double answer = Double.parseDouble(userAnswer);
+            return questions.get(currentQuestion).checkQuestion(answer);
+        }else{
+            return false;
+        }
 
-        double answer = Double.parseDouble(userAnswer);
-        return questions.get(currentQuestion).checkQuestion(answer);
     }
 
     public Block(int num,String n){

@@ -1,6 +1,10 @@
 package programm;
 
+import android.content.Intent;
+import android.widget.Toast;
+
 import com.example.pierrelaptop.diebeste.DisaplyMessageActivity;
+import com.example.pierrelaptop.diebeste.MainActivity;
 import com.example.pierrelaptop.diebeste.Uebungen;
 
 import org.json.JSONArray;
@@ -27,15 +31,20 @@ public class Orchestrator{
     private Question currentQuestion;
     private DisaplyMessageActivity disaplyMessageActivity;
     private Uebungen uebungen;
+    private MainActivity mainActivity;
 
+    public void setMainActivity(MainActivity m ){
+        mainActivity = m;
+    }
+    public MainActivity getMainActivity(){return mainActivity;}
     public void setUebungen(Uebungen u ){
         uebungen = u;
     }
-
+    public Uebungen getUebungen(){return uebungen;}
     public void setDisaplyMessageActivity(DisaplyMessageActivity d){
         disaplyMessageActivity = d ;
     }
-
+    public DisaplyMessageActivity getDisaplyMessageActivity(){return disaplyMessageActivity;}
     public void displayNextQuestion(){
         Block block = blockList.get(currentBlockNum);
         uebungen.setQuestion(block.getQuestion());
@@ -60,6 +69,9 @@ public class Orchestrator{
         boolean answerCorrect = blockList.get(currentBlockNum).checkAnswer(userAnswer);
         if(answerCorrect){
             displayNextQuestion();
+        }else{
+            Toast.makeText(uebungen, "Deine Antwort ist Falsch!",
+                    Toast.LENGTH_LONG).show();
         }
 
     }
@@ -71,6 +83,14 @@ public class Orchestrator{
            // nextBlock=new Block(nextBlockNum);
 
         }
+    }
+
+    public void goHome(){
+        Intent intent = new Intent(mainActivity.getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        mainActivity.startActivity(intent);
+        Toast.makeText(mainActivity, "Es besteht aktuell keine Interntverbidung.", Toast.LENGTH_LONG).show();
+
     }
 
     public Question getCurrentQuestion(){return currentQuestion;}
