@@ -58,7 +58,8 @@ public class Orchestrator{
         disaplyMessageActivity.startActivity(intent);
         Toast.makeText(disaplyMessageActivity, "Es gibt keine Fragen mehr in diesem Block",
                 Toast.LENGTH_LONG).show();
-
+        Loader loader = new Loader(this);
+        loader.execute("update",Integer.toString(blockList.get(currentBlockNum).getBlockId()));
     }
     public void setCurrentBlock(int blockNum){
         currentBlockNum = blockNum;

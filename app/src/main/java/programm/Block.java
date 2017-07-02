@@ -52,6 +52,7 @@ public class Block {
 
     }
     public String getBlockName(){return blockName;}
+    public int getBlockId(){return blockId;}
     private void loadBlock(){
         Loader loader = new Loader(this);
         String url = Lib.baseURL+"getMathBlock?block="+blockId;

@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 /**
  * Created by kevin on 22.06.2017.
+ * Diese Klasse dient dem Donwload von Informationen vom Server.
  */
 
 public class Loader extends AsyncTask<String,Integer,String> {
@@ -33,6 +34,10 @@ public class Loader extends AsyncTask<String,Integer,String> {
                     result=Lib.readUrl(Lib.baseURL+"userBlockList");
                 }else if (object.getClass()==MainActivity.class&&strings[0].equals("login")){
                     result=Lib.readUrl(strings[1]);
+                }else if (object.getClass()==Orchestrator.class&&strings[0].equals("update")){
+                    System.out.println(Lib.baseURL+"updateBlock?blockID="+strings[1]);
+                    result=Lib.readUrl(Lib.baseURL+"updateBlock?blockID="+strings[1]);
+
                 }
 
             }
