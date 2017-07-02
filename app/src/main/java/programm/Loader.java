@@ -51,6 +51,7 @@ public class Loader extends AsyncTask<String,Integer,String> {
     protected void onPostExecute(String s) {
         System.out.println("S :::: "+s);
         if ( s.equals("error")||s.equals("") ) {
+            System.out.println("onPostError");
             Orchestrator.getOrchestrator().goHome();
         } else {
             if (parameter.length > 0) {
@@ -58,7 +59,6 @@ public class Loader extends AsyncTask<String,Integer,String> {
                     Block b = (Block) object;
                     b.loadResponse(s);
                 } else if (object.getClass() == Orchestrator.class && parameter[0].equals("getBlockList")) {
-                    System.out.println("S ::: " + s);
                     Orchestrator.getOrchestrator().setUserBlockList(s);
                 } else if (object.getClass() == MainActivity.class && parameter[0].equals("login")) {
                     MainActivity activity = (MainActivity) object;
@@ -69,7 +69,6 @@ public class Loader extends AsyncTask<String,Integer,String> {
                         if (obj.getInt("loginState") == 1) {
                             orchestrator.getBlockList();
                             activity.loginSucsess();
-
                             orchestrator.setLogin(true);
                         } else {
                             orchestrator.logout();

@@ -46,8 +46,23 @@ public class Orchestrator{
     }
     public DisaplyMessageActivity getDisaplyMessageActivity(){return disaplyMessageActivity;}
     public void displayNextQuestion(){
-        Block block = blockList.get(currentBlockNum);
-        uebungen.setQuestion(block.getQuestion());
+        if(blockList.get(currentBlockNum).getQuestions().size()>0) {
+            Block block = blockList.get(currentBlockNum);
+            uebungen.setQuestion(block.getQuestion());
+        }else {
+            goDisplay();
+        }
+
+    }
+
+
+    public void goDisplay(){
+        Intent intent = new Intent(disaplyMessageActivity.getApplicationContext(), DisaplyMessageActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        disaplyMessageActivity.startActivity(intent);
+        Toast.makeText(disaplyMessageActivity, "Es gibt keine Fragen mehr in diesem Block",
+                Toast.LENGTH_LONG).show();
+
     }
 
     public Question getNextQuestion(){
@@ -56,7 +71,7 @@ public class Orchestrator{
             int randomNum = (int)(Math.random() * currentBlock.getQuestions().size());
             currentQuestion = currentBlock.getQuestions().get(randomNum);
         }else{
-
+            goDisplay();
         }
         return getCurrentQuestion();
     }
@@ -156,5 +171,5 @@ public class Orchestrator{
         return instance;
     }
 
-    public boolean getLoginStatus(){return login;}
+    //public boolean getLoginStatus(){return login;}
 }

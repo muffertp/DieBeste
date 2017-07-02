@@ -32,7 +32,11 @@ public class Block {
     public boolean checkAnswer(String userAnswer){
         if(!userAnswer.trim().equals("")) {
             double answer = Double.parseDouble(userAnswer);
-            return questions.get(currentQuestion).checkQuestion(answer);
+            boolean correct = questions.get(currentQuestion).checkQuestion(answer);
+            if (correct){
+                questions.remove(currentQuestion);
+            }
+            return correct;
         }else{
             return false;
         }
