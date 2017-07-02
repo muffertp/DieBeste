@@ -14,11 +14,17 @@ import java.util.ArrayList;
 public class Block {
 
     private ArrayList<Question> questions = null;
-
     private int blockId;
     private String blockName="";
-
     private int currentQuestion=0;
+
+    public Block(int num,String n){
+
+        questions = new ArrayList<Question>();
+        blockId = num;
+        blockName=n;
+        loadBlock();
+    }
 
     public String getQuestion(){
         if(questions.size()>0){
@@ -43,16 +49,9 @@ public class Block {
 
     }
 
-    public Block(int num,String n){
-
-        questions = new ArrayList<Question>();
-        blockId = num;
-        blockName=n;
-        loadBlock();
-
-    }
     public String getBlockName(){return blockName;}
     public int getBlockId(){return blockId;}
+
     private void loadBlock(){
         Loader loader = new Loader(this);
         String url = Lib.baseURL+"getMathBlock?block="+blockId;

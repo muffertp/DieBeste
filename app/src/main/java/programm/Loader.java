@@ -15,12 +15,14 @@ import org.json.JSONObject;
 
 public class Loader extends AsyncTask<String,Integer,String> {
 
-    private Object object;
-    private String[] parameter;
+    private Object object; //object an das die response gesendet wird.
+    private String[] parameter; //parameter für der den httprequest
+
     public Loader(Object obj){
         object=obj;
     }
 
+    //Download aufruf
     @Override
     protected String doInBackground(String... strings) {
         parameter=strings;
@@ -37,9 +39,7 @@ public class Loader extends AsyncTask<String,Integer,String> {
                 }else if (object.getClass()==Orchestrator.class&&strings[0].equals("update")){
                     System.out.println(Lib.baseURL+"updateBlock?blockID="+strings[1]);
                     result=Lib.readUrl(Lib.baseURL+"updateBlock?blockID="+strings[1]);
-
                 }
-
             }
         } catch ( Exception anyError) {
             result= "error";
@@ -47,6 +47,7 @@ public class Loader extends AsyncTask<String,Integer,String> {
         return result;
     }
 
+    //response verarbeitung und weiterleitung
     @Override
     protected void onPostExecute(String s) {
         System.out.println("S :::: "+s);

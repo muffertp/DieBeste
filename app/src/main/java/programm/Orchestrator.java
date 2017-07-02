@@ -28,19 +28,26 @@ public class Orchestrator{
     private DisaplyMessageActivity disaplyMessageActivity;
     private Uebungen uebungen;
     private MainActivity mainActivity;
+    private static Orchestrator instance;
 
-    public void setMainActivity(MainActivity m ){
-        mainActivity = m;
+    private Orchestrator(){
+        blockList = new ArrayList<Block>();
     }
-    public MainActivity getMainActivity(){return mainActivity;}
-    public void setUebungen(Uebungen u ){
-        uebungen = u;
+
+    /* Die Klasse kann nicht direckt instanziiert werden, sondern muss über die get Insatance Methode
+     * aufgerufen werden. Dadurch kann es in dem gesammtet Programm nur eine Instans der Klasse geben.
+     * um sicherzustellen, das dies nicht durch Multithreads ausgehebelt wird muss die getOrchestrator
+     * Methode synchronized durchgeführt werden, damit es keinen Parallelen Thread gibt und es nicht
+     * zwei instansen geben kann. (kann bei häufigen getOrchestrator aufrufen zu einem Performanceproblem
+     * führen.)
+    */
+    public static synchronized Orchestrator getOrchestrator(){
+        if (instance==null){
+            instance = new Orchestrator();
+        }
+        return instance;
     }
-    public Uebungen getUebungen(){return uebungen;}
-    public void setDisaplyMessageActivity(DisaplyMessageActivity d){
-        disaplyMessageActivity = d ;
-    }
-    public DisaplyMessageActivity getDisaplyMessageActivity(){return disaplyMessageActivity;}
+
     public void displayNextQuestion(){
         if(blockList.get(currentBlockNum).getQuestions().size()>0) {
             Block block = blockList.get(currentBlockNum);
@@ -48,9 +55,7 @@ public class Orchestrator{
         }else {
             goDisplay();
         }
-
     }
-
 
     public void goDisplay(){
         Intent intent = new Intent(disaplyMessageActivity.getApplicationContext(), DisaplyMessageActivity.class);
@@ -60,9 +65,6 @@ public class Orchestrator{
                 Toast.LENGTH_LONG).show();
         Loader loader = new Loader(this);
         loader.execute("update",Integer.toString(blockList.get(currentBlockNum).getBlockId()));
-    }
-    public void setCurrentBlock(int blockNum){
-        currentBlockNum = blockNum;
     }
 
     public void checkUserAnswer(String userAnswer){
@@ -82,13 +84,6 @@ public class Orchestrator{
         mainActivity.startActivity(intent);
         Toast.makeText(mainActivity, "Es besteht aktuell keine Interntverbidung.", Toast.LENGTH_LONG).show();
 
-    }
-
-    public ArrayList<Block> getBlockList(){return blockList;}
-    private static Orchestrator instance;
-
-    private Orchestrator(){
-        blockList = new ArrayList<Block>();
     }
 
     public void logout(){
@@ -119,8 +114,6 @@ public class Orchestrator{
         disaplyMessageActivity.setButton();
     }
 
-
-
     public void setLogin(boolean state){
         login = state;
         if (state){
@@ -128,17 +121,20 @@ public class Orchestrator{
         }
     }
 
-    /* Die Klasse kann nicht direckt instanziiert werden, sondern muss über die get Insatance Methode
-     * aufgerufen werden. Dadurch kann es in dem gesammtet Programm nur eine Instans der Klasse geben.
-     * um sicherzustellen, das dies nicht durch Multithreads ausgehebelt wird muss die getOrchestrator
-     * Methode synchronized durchgeführt werden, damit es keinen Parallelen Thread gibt und es nicht
-     * zwei instansen geben kann. (kann bei häufigen getOrchestrator aufrufen zu einem Performanceproblem
-     * führen.)
-    */
-    public static synchronized Orchestrator getOrchestrator(){
-        if (instance==null){
-            instance = new Orchestrator();
-        }
-        return instance;
+    public void setCurrentBlock(int blockNum){
+        currentBlockNum = blockNum;
     }
+    public void setMainActivity(MainActivity m ){
+        mainActivity = m;
+    }
+    public MainActivity getMainActivity(){return mainActivity;}
+    public void setUebungen(Uebungen u ){
+        uebungen = u;
+    }
+    public Uebungen getUebungen(){return uebungen;}
+    public ArrayList<Block> getBlockList(){return blockList;}
+    public void setDisaplyMessageActivity(DisaplyMessageActivity d){
+        disaplyMessageActivity = d ;
+    }
+    public DisaplyMessageActivity getDisaplyMessageActivity(){return disaplyMessageActivity;}
 }

@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         orchestrator.setMainActivity(this);
     }
 
-    /** Called when the user taps the Send button */
+    //login und senden der Logindaten an den Server
     public void login(View view) {
 
         Intent intent = new Intent(this, DisaplyMessageActivity.class);
@@ -33,11 +33,12 @@ public class MainActivity extends AppCompatActivity {
         loader.execute("login", Lib.baseURL+"userData?email="+userName+"&password="+userPassword);
 
     }
-
+    //wenn login erfolgreich
     public void loginSucsess(){
         Intent intent = new Intent(this, DisaplyMessageActivity.class);
         startActivity(intent);
     }
+    //wenn login fehlgeschlagen
     public void loginFail(){
         Toast.makeText(this, "Login Fehlgeschlagen",
                 Toast.LENGTH_LONG).show();

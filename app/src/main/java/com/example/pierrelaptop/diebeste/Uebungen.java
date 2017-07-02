@@ -22,25 +22,21 @@ public class Uebungen extends AppCompatActivity {
         orchestrator.setUebungen(this);
         orchestrator.displayNextQuestion();
         WebView webView = (WebView) findViewById(R.id.questionWebView);
+        //Einstellen das der WebView bei downloadproblemen angemessen reagiert.
         webView.setWebViewClient(new WebViewClient() {
-
             @Override
             public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error){
                 Orchestrator.getOrchestrator().goHome();
             }
         });
-
-
     }
-
+    //kontrollieren der gegebenen Antwort.
     public void checkQuestion(View view){
         EditText userInput = (EditText) findViewById(R.id.answerInput);
         Orchestrator orchestrator = Orchestrator.getOrchestrator();
         orchestrator.checkUserAnswer(userInput.getText().toString());
     }
-
-
-
+    //anszeigen der Frage im webView
     public void setQuestion(String question){
 
         try
@@ -53,7 +49,7 @@ public class Uebungen extends AppCompatActivity {
         }
         catch (Exception e)
         {
-            Toast.makeText(this, "No PDF Viewer Installed", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
         }
 
 

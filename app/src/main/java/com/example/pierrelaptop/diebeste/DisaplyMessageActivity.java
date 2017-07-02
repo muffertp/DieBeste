@@ -20,7 +20,7 @@ public class DisaplyMessageActivity extends AppCompatActivity {
         orchestrator.setDisaplyMessageActivity(this);
         setButton();
     }
-
+    //entscheiden welche buttons angezeigt werden
     public void setButton(){
         ArrayList<Button> buttonArrayList = new ArrayList<Button>();
         buttonArrayList.add((Button) findViewById(R.id.MathButton1));
@@ -38,7 +38,7 @@ public class DisaplyMessageActivity extends AppCompatActivity {
             buttonArrayList.get(j).setText("");
         }
     }
-
+    //anzeigen der ausgewählten Fragen.
     public void sendMessage2(View view) {
         Orchestrator orchestrator = Orchestrator.getOrchestrator();
         orchestrator.setCurrentBlock(Integer.parseInt(view.getTag().toString()));

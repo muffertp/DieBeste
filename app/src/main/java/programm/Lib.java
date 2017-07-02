@@ -16,11 +16,13 @@ import java.util.regex.Pattern;
 
 public class Lib {
 
-    private static String sessionID="";
+
+    private static String sessionID="";//sessionID vom Server um die Identität zu verifizieren
     public static final String baseURL = "http://thebest.sysgame.de/run.cgi/";
 
     public static String getSessionID(){return sessionID;}
 
+    //Download aufruf und umwandeln des responses in einen String
     public static String readUrl(String urlString) {
         String result="";
         URL url;
