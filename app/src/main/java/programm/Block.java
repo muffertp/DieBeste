@@ -31,7 +31,7 @@ public class Block {
 
     public boolean checkAnswer(String userAnswer){
 
-        int answer = Integer.parseInt(userAnswer);
+        double answer = Double.parseDouble(userAnswer);
         return questions.get(currentQuestion).checkQuestion(answer);
     }
 

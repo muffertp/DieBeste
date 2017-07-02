@@ -57,7 +57,7 @@ public class Orchestrator{
     }
 
     public void checkUserAnswer(String userAnswer){
-        boolean answerCorrect = blockList.get(0).checkAnswer(userAnswer);
+        boolean answerCorrect = blockList.get(currentBlockNum).checkAnswer(userAnswer);
         if(answerCorrect){
             displayNextQuestion();
         }
@@ -91,6 +91,7 @@ public class Orchestrator{
 
     public void loadUserBlockList(){
         if (login){
+
             Loader loader = new Loader(this);
             loader.execute("getBlockList");
         }
@@ -98,6 +99,7 @@ public class Orchestrator{
 
     }
     public void setUserBlockList (String s){
+        blockList.clear();
         try {
             JSONArray jsonArray = new JSONArray(s);
             for (int i = 0; i<jsonArray.length();i++){
